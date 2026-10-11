@@ -1,0 +1,38 @@
+I've built the full scraping agent and packaged it as scraper-agent.zip, which you can download above. I checked that the code compiles, but I haven't run it against a live site or the browser, so test it on a simple site first.
+
+What's inside
+
+agent.py is the agent itself. Claude controls a real browser with tools to open pages, read text, list links, click, type, and save records. It decides the steps on its own and writes results to JSON and CSV.
+server.py holds the triggers: a REST API (POST /run) and a cron scheduler that reads schedules.json.
+README.md, requirements.txt, .env.example, and a Dockerfile cover setup and deployment.
+
+Quick start
+
+bash
+unzip scraper-agent.zip && cd scraper-agent
+pip install -r requirements.txt
+playwright install chromium
+cp .env.example .env        # add your ANTHROPIC_API_KEY
+python agent.py --goal "Get title and price of books on first 2 pages" \
+  --url https://books.toscrape.com --fields title,price
+
+How it triggers
+
+Manual: run the python agent.py ... command above.
+On demand: run uvicorn server:app, then call POST /run from any app.
+Automatic: set "enabled": true in schedules.json and keep the server running.
+
+Safety built in
+
+It blocks localhost and private-network URLs.
+It respects robots.txt by default.
+It ignores instructions found inside web pages, so a page can't hijack the agent.
+Each job has a step limit.
+The API accepts an optional key.
+
+You'll need your own Anthropic API key, and each run uses API credits, roughly one model call per step. Only scrape sites you're allowed to, and check their terms of service first.
+
+What site do you want to scrape first? I can adjust the prompts and add things like Google Sheets output, login handling, or email alerts for your use case.
+
+Scraper agent
+ZIP 

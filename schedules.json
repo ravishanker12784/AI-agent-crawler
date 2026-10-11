@@ -1,0 +1,11 @@
+[
+  {
+    "name": "daily-books",
+    "enabled": false,
+    "cron": "0 9 * * *",
+    "goal": "Collect the title and price of every book on the first 2 pages.",
+    "start_url": "https://books.toscrape.com",
+    "fields": ["title", "price"],
+    "max_steps": 20
+  }
+]
