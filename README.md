@@ -1,4 +1,4 @@
-# AI Web Scraping Agent
+# AI Web crawler Agent
 
 Claude controls a real browser (Playwright) with tools: `goto`, `get_page_text`, `get_links`,
 `click`, `type_text`, `save_records`, `finish`. It decides what to do step by step, then saves
